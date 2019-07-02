@@ -24,7 +24,11 @@ class Album
   end
 
   def ==(album_to_compare)
-    self.name() == album_to_compare.name()
+    if album_to_compare != nil
+      self.name() == album_to_compare.name()
+    else
+      nil
+    end
   end
 
   def self.clear
@@ -45,6 +49,7 @@ class Album
 
   def delete
     DB.exec("DELETE FROM albums WHERE id = #{@id};")
+    DB.exec("DELETE FROM songs WHERE album_id = #{@id};")
   end
 
   def songs
